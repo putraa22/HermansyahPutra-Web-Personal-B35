@@ -1,0 +1,79 @@
+
+
+.container .content1 {
+  /* width: 800px; */
+  padding: 13px;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  background-color: #fff;
+  box-shadow: 0 0 20px black;
+  border-radius: 15px;
+}
+
+
+
+.container-about  {
+  /* width: 800px; */
+  padding: 15px;
+  margin: auto;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  background-color: #fff;
+  box-shadow: 0 0 20px black;
+  border-radius: 15px;
+}
+
+.content {
+  width: 500px;
+  margin: auto;
+}
+
+.content .tittle {
+  text-align: justify;
+}
+
+.content .cv {
+  padding-top: 15px;
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+}
+
+.row .cv {
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+  padding-left: 10px;
+}
+
+// navbar
+
+.navbar-brand img {
+  width: 50px;
+  height: 33px;
+}
+
+.navbar .nav-link:hover {
+  color: #ff471a;
+}
+
+// Navbar End
+
+#contact {
+  margin-top: 3rem;
+}
+
+section {
+  text-size: 50px;
+}
+
+#projectCard:hover {
+    transition: .8s;
+    transform: scale(1.1);
+    background-image: linear-gradient(45deg, rgb(0, 36, 77), rgb(197, 104, 76)) !important;
+    color: #fff;
+    box-shadow: 0 0 20px black;
+} 
+
+

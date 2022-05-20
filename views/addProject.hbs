@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- Link Css -->
+    <link rel="stylesheet" href="/public/asset/css/style.css">
+
+    <title>My Project</title>
+
+  </head>
+  <body style="background-image:url('../public/asset/img/bg-2.png')  ;">
+
+     <!-- Navbar Start -->
+     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+              <img src="../public/asset/img/logo.png" alt="Logo" style="width: 50px; height: 33px;">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/addProject">Add Project</a>
+              </li>
+            </ul>
+            <form class="d-flex ms-md-4">
+              <a href="/contact" class="btn btn-dark" style="border-radius: 15px;">Contact Me</a>
+            </form>
+          </div>
+        </div>
+      </nav>
+    <!-- Navbar End -->
+
+    <!-- My Project section Start -->
+    <form>
+        <div class="container" style="width: 500px;">
+            <div class="row text-center p-3">
+                <h1 style="color: #000;">ADD PROJECT</h1>
+            </div>
+            <div class="row justify-content-center  ">
+                <div class="col-lg-12">
+                    <label for="project" style="font-size: 18px; font-weight: bold;">Project Name</label>
+                    <input type="text" class="form-control" id="project">
+                    <div class="valid-feedback">Good!</div>       
+                </div>
+                <div class="col col-sm-6 pt-3 pb-3">
+                    <label for="date1"  style="font-size: 18px; font-weight: bold; ">Start Date</label>
+                    <input type="date" class="form-control" id="date1"   aria-label="start">
+                </div>
+                <div class="col col-sm-6 pt-3 pb-3">
+                    <label for="date2" style="font-size: 18px; font-weight: bold; ">End Date</label>
+                    <input type="date" class="form-control" id="date2" aria-label="end">
+                </div>
+            
+                <div class="mb-3">
+                    <label for="conten" style="font-size: 18px; font-weight: bold; ">Description</label>
+                    <textarea class="form-control" id="conten"></textarea>
+                </div>
+            </div>
+            <div class="d-flex flex-row">
+                <h5 style="font-weight: bold;">Technologies</h5>
+            </div>
+            <div class="d-flex flex-row">
+                <div class="col col-sm-6 pt-1 pb-3">
+                    <input class="form-check-input" type="checkbox" value='<i class="fa-brands fa-html5 fa-2x pe-2"></i>' id="satu" />
+                    <label class="form-check-label" for="satu">HTML</label> <br>
+                    <input class="form-check-input" type="checkbox" value='<i class="fa-brands fa-css3 fa-2x pe-2"></i>' id="dua" />
+                    <label class="form-check-label" for="dua">CSS</label> 
+                </div>
+
+                <div class="col col-sm-6 pt-1 pb-3">
+                    <input class="form-check-input" type="checkbox" value='<i class="fa-brands fa-js-square fa-2x pe-2"></i>' id="tiga" />
+                    <label class="form-check-label" for="tiga">JAVASCRIPT</label> <br>
+                    <input class="form-check-input" type="checkbox" value= '<i class="fa-brands fa-bootstrap fa-2x pe-2"></i>' id="empat" />
+                    <label class="form-check-label" for="empat">BOOTSTRAP</label> 
+                </div>
+               
+            </div>
+            <div class="d-flex flex-row">
+                <div class="col-12 pb-3">
+                    <label for="formFile" class="form-label">Upload Image</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+            </div>
+            <div class="d-flex flex-row">
+                <div class="ms-auto">
+                  <button  type="button" onclick="addCard()" class="btn btn-dark shadow" id="bt" style="border-radius: 18px;">submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- My Project Section End -->
+
+    <!-- Project Card Start -->
+    <section id="project">
+      <div class=" container mt-5 m-auto" style="max-width: 100%; background-color: #fff;">
+          <div class=" row text-center pt-4">
+            <div class=" col">
+              <h2 style="font-weight: bold;">MY PROJECT</h2>
+            </div>
+          </div>
+        <div class="row d-flex justify-content-start mt-4 offset-1 " id="thumb">
+          
+            <!-- <div class="col-4 mb-4 "  >
+              <div class="card" id="projectCard" style="width: 18rem;" >
+                <img src="./asset/img/fotoku.jpg" class="card-img-top p-2" alt="...">
+                <div class="card-body"><a href="./detail-project/detail-project.html" style="text-decoration: none; color: #000;">
+                  <h5 class="card-title">Project Name</h5>
+                  <p id="durasi" class="card-subtitle text-muted">Durasi :</p>
+                  <p class="card-text">Description</p>
+                  <div class="pt-2 pb-2 me-auto" id="material">
+                    <a href="#" style="text-decoration: none; "><i class="fa-brands fa-html5 fa-2x pe-2"></i></a> 
+                    <a href="#"  style="text-decoration: none;"><i class="fa-brands fa-css3 fa-2x pe-2"></i></a>  
+                    <a href="#"  style="text-decoration: none;"><i class="fa-brands fa-js-square fa-2x pe-2"></i></a>  
+                    <a href="#"  style="text-decoration: none;"><i class="fa-brands fa-bootstrap fa-2x pe-2"></i></a> 
+                  </div>
+                  <div class="d-flex justify-content-between">
+                  <a href="#" class="btn btn-secondary btn-sm flex-grow-1 me-3 " style="border-radius: 16px; font-size: 12px;">Edit</a>
+                  <a href="#" class="btn btn-secondary btn-sm flex-grow-1" style="border-radius: 16px; font-size: 12px;">Delete</a>
+                  </div>
+                  </a>
+                </div>
+              </div>
+            </div> -->
+
+          </div>
+      </div>
+    </section>
+    <!-- Project Card End -->
+
+
+
+   
+
+
+
+      <!-- Footer Start -->
+          <footer class="bg-light">
+              <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2022 Copyright:
+                <a class="text-dark" href="#" style="text-decoration: none;">Hermansyah Putra</a>
+              </div>
+          </footer>
+      <!-- Footer End -->
+
+          <script src="../public/asset/js/projects.js"></script>
+  </body>
+</html>
