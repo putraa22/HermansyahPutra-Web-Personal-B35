@@ -62,6 +62,7 @@ function addCard() {
         durasi2: durasi2,
         conten: conten,
         checkbox: checkbox,
+        
         image: image,
     };
 
@@ -91,6 +92,7 @@ function renderProjects() {
             <a href="#" class="btn btn-secondary btn-sm flex-grow-1 me-3 " style="border-radius: 16px; font-size: 12px;">Edit</a>
             <a href="#" class="btn btn-secondary btn-sm flex-grow-1" style="border-radius: 16px; font-size: 12px;">Delete</a>
             </div>
+            
             </a>
           </div>
         </div>
@@ -100,4 +102,5 @@ function renderProjects() {
 
     
 }
+
 

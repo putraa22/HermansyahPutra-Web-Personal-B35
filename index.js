@@ -1,14 +1,18 @@
 const express = require ('express');
+const res = require('express/lib/response');
 
 const app = express()
 const port = 3000
 
+
 // app.get('/',  (req,  res) => {
 //     res.send(' Magic World')
 // })
+
 const isLogin = true
 
 const projects = []
+
 
 app.set('view engine', 'hbs');  // view engine
 
@@ -19,7 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 app.get('/home', (req, res) => {
   const newProject = projects.map((project) => {
     project.isLogin = isLogin
-
+   
+    
     return project
   })
   
@@ -36,13 +41,19 @@ app.get('/addProject', (req,res) => {
 
 app.post('/addProject', (req, res) => {
   const data = req.body;
-
   projects.push(data)
 
   res.redirect('/home');
 });
 
-app.get('/detail', (req, res) => {
+app.get('/home/delete/:id',(req,res)=>{
+  projects.splice(req.params.id,1);
+  res.redirect('/home');
+})
+
+
+
+app.get('/detail/:index', (req, res) => {
   const index = req.params.index;
 
   const project = projects[index]
@@ -61,3 +72,6 @@ app.get('/contact', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running on PORT: ${port}`);
   });
+
+ 
+  
