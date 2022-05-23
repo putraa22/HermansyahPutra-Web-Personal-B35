@@ -6,16 +6,24 @@ const port = 3000
 // app.get('/',  (req,  res) => {
 //     res.send(' Magic World')
 // })
+const isLogin = true
 
+const projects = []
 
-app.set('view engine', 'hbs'); //setup template engine / view engine
+app.set('view engine', 'hbs');  // view engine
 
 app.use('/public', express.static(__dirname + '/public'));
 
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/home', (req, res) => {
-  res.render('home');
+  const newProject = projects.map((project) => {
+    project.isLogin = isLogin
+
+    return project
+  })
+  
+  res.render('home', {isLogin: isLogin, projects: newProject});
 });
 
 app.get('/about', (req, res) => {
@@ -28,9 +36,18 @@ app.get('/addProject', (req,res) => {
 
 app.post('/addProject', (req, res) => {
   const data = req.body;
-  console.log(data);
 
-  res.redirect('/contact');
+  projects.push(data)
+
+  res.redirect('/home');
+});
+
+app.get('/detail', (req, res) => {
+  const index = req.params.index;
+
+  const project = projects[index]
+
+  res.render('detail', { data: index, project});
 });
 
 
@@ -38,11 +55,6 @@ app.get('/contact', (req, res) => {
   res.render('contact');
 });
 
-app.get('/detail', (req, res) => {
-  const index = req.params.index;
-
-  res.render('detail', { data: index, number: '2022' });
-});
 
 
 

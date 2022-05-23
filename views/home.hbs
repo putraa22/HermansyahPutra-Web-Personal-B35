@@ -107,28 +107,32 @@
             </div>
           </div>
         <div class="row d-flex justify-content-start mt-4 offset-1 " id="thumb">
-          
-            <div class="col-4 mb-4 "  >
+
+          {{#each projects}}
+            <div class="col-4 mb-4 " >
               <div class="card" id="projectCard" style="width: 18rem;" >
                 <img src="../public/asset/img/fotoku.jpg" class="card-img-top p-2" alt="...">
-                <div class="card-body"><a href="/detail" style="text-decoration: none; color: #000;">
-                  <h5 class="card-title">Project Name</h5>
-                  <p id="durasi" class="card-subtitle text-muted">Durasi :</p>
-                  <p class="card-text">Description</p>
+                <div class="card-body"><a href="/detail/{{@index}}" target="_blank" style="text-decoration: none; color: #000;">
+                  <h5 class="card-title">{{this.title}}</h5>
+                  <p id="durasi" class="card-subtitle text-muted" style="font-size: 12px;">Durasi : {{this.date1}} - {{this.date2}}</p>
+                  <p class="card-text">{{this.conten}}</p>
                   <div class="pt-2 pb-2 me-auto" id="material">
-                    <a href="#" style="text-decoration: none; "><i class="fa-brands fa-html5 fa-2x pe-2"></i></a> 
-                    <a href="#"  style="text-decoration: none;"><i class="fa-brands fa-css3 fa-2x pe-2"></i></a>  
-                    <a href="#"  style="text-decoration: none;"><i class="fa-brands fa-js-square fa-2x pe-2"></i></a>  
-                    <a href="#"  style="text-decoration: none;"><i class="fa-brands fa-bootstrap fa-2x pe-2"></i></a> 
+                    <a href="#" style="text-decoration: none; "></a> 
+                    <a href="#"  style="text-decoration: none;"></a>  
+                    <a href="#"  style="text-decoration: none;"></a>  
+                    <a href="#"  style="text-decoration: none;"></a> 
                   </div>
                   <div class="d-flex justify-content-between">
+                    {{#if this.isLogin}}
                   <a href="#" class="btn btn-secondary btn-sm flex-grow-1 me-3 " style="border-radius: 16px; font-size: 12px;">Edit</a>
                   <a href="#" class="btn btn-secondary btn-sm flex-grow-1" style="border-radius: 16px; font-size: 12px;">Delete</a>
+                    {{/if}}
                   </div>
                   </a>
                 </div>
               </div>
             </div>
+            {{/each}}
 
           </div>
       </div>
