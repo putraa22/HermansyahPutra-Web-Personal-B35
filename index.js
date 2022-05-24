@@ -1,6 +1,6 @@
 const express = require ('express');
 
-// const db = require ('./db_project/database')
+const db = require ('./db_project/database')
 
 const app = express()
 const port = 3000
@@ -16,7 +16,6 @@ const isLogin = true
 
 const projects = [{
   title: 'adasdawdsdawsda',
-  date:'',
   conten: '',
   checkbox: [
     'fa-brands fa-html5 fa-2x pe-2',
@@ -34,25 +33,30 @@ app.use('/public', express.static(__dirname + '/public'));
 
 app.use(express.urlencoded({ extended: false }));
 
+
 app.get('/home', (req, res) => {
-  // db.connect(function (err, client, done) {
-  //   if (err) throw err
+  db.connect(function (err, client, done) {
+    if (err) throw err;
     
-  //   const query = 'SELECT * FROM public.tb_project'
+    const query = 'SELECT * FROM public.tb_project';
     
-  //   client.query(query, function ( err, result ) {
-  //     if (err) throw err
+    client.query(query, function ( err, result ) {
+      if (err) throw err
+
+      const projects = result.rows;
 
     const newProject = projects.map((project) => {
         project.isLogin = isLogin
-       
-        return project
+
+        return project;
       })
+      console.log(newProject);
+
       res.render('home', {isLogin: isLogin, projects: newProject});
     })
-    // done()
-//   })
-// })
+    done()
+  })
+})
 
 
 
