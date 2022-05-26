@@ -12,19 +12,23 @@ const port = 3000
 
 const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',];
 
+
+
 const isLogin = true
 
-const projects = [{
-  title: 'adasdawdsdawsda',
-  conten: '',
-  checkbox: [
-    'fa-brands fa-html5 fa-2x pe-2',
-    'fa-brands fa-css3 fa-2x pe-2',
-    'fa-brands fa-js-square fa-2x pe-2',
-    'fa-brands fa-bootstrap fa-2x pe-2'
-  ],
-  duration: ''
-}]
+const projects = [ 
+  // {
+//   title: 'adasdawdsdawsda',
+//   conten: '',
+//   checkbox: [
+//     'fa-brands fa-html5 fa-2x pe-2',
+//     'fa-brands fa-css3 fa-2x pe-2',
+//     'fa-brands fa-js-square fa-2x pe-2',
+//     'fa-brands fa-bootstrap fa-2x pe-2'
+//   ],
+//   duration: ''
+// } 
+]
 
 
 app.set('view engine', 'hbs');  // view engine
@@ -38,7 +42,7 @@ app.get('/home', (req, res) => {
   db.connect(function (err, client, done) {
     if (err) throw err;
     
-    const query = 'SELECT * FROM public.tb_project';
+    const query = 'SELECT * FROM tb_project';
     
     client.query(query, function ( err, result ) {
       if (err) throw err
@@ -71,15 +75,14 @@ app.get('/addProject', (req,res) => {
 
 app.post('/addProject', (req, res) => {
   const data = req.body;
-  // projects.push(data)
+  
   projects.push({
     title: data['name'],
     date: getFullTime(data['date1'], data['date2']),
     conten: data['conten'],
     checkbox:data['checkbox[]'],
-    duration: difference(data['date1'], data['date2']),
+    duration: difference(data['dateStart'], data['dateEnd']),
   })
-
 
   res.redirect('/home');
 });
@@ -89,9 +92,21 @@ app.get('/home/delete/:id',(req,res)=>{
   res.redirect('/home');
 })
 
-app.get('/project/edit/:index',(req,res)=>{
-  res.render('project',{edit: projects[req.params.index],index:req.params.index});
-  res.redirect('/addProject')
+app.get('/addProject/edit/:index',(req,res)=>{
+  res.render('edit',{edit: projects[req.params.index],index:req.params.index});
+})
+
+app.post('/addProject/edit/:index', (req,res) =>{
+  const data = req.body
+  projects[req.params.index]={
+    title: data['name'],
+    date: getFullTime(data['date1'], data['date2']),
+    conten: data['conten'],
+    checkbox:data['checkbox[]'],
+    duration: difference(data['dateStart'], data['dateEnd']),
+  }
+
+  res.redirect('/home');
 })
 
 
@@ -114,6 +129,8 @@ app.get('/contact', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running on PORT: ${port}`);
   });
+
+
 
   function difference(date1, date2) {
     date1 = new Date(date1);
