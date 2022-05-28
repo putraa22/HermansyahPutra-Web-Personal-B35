@@ -8,4 +8,6 @@ const dbPool = new Pool({
   password: 'Putra220300',
 })
 
+
+
 module.exports = dbPool

@@ -56,13 +56,14 @@
             </div>
             <div class="col mt-5 ms-5">
                 <h4 class="mb-4">Waktu Pengerjaan </h4>
-                <p><i class="fa-solid fa-calendar-days pe-3 fa-2x"></i>{{project.dateStart}} - {{project.dateEnd}}</p>
-                <p><i class="fa-solid fa-clock pe-3 fa-2x" ></i> {{project.duration}}</p>
+                <p><i class="fa-solid fa-calendar-days pe-3 fa-2x"></i>{{fulltime}}</p>
+                <p><i class="fa-solid fa-clock pe-3 fa-2x" ></i> {{duration true}}</p>
 
                 <div class="row">
                     <div class="col">
                     <h4 class="mb-4">Technologies</h4>
                     <p>
+                      
                         {{#each project.checkbox}}
                           <i class="{{this}}"></i>
                         {{/each}}

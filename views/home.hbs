@@ -50,7 +50,7 @@
     <div class="content1">
       <h2 class="text-center mb-5">Selamat datang di website saya</h2>
           <div class="content">
-              <p class="tittle">Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+              <p class="tittle" style="text-indent: 15px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
                   Quas magnam ea atque, deserunt sed odit doloribus ratione quibusdam rerum sequi. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat assumenda modi dolores. Voluptate, distinctio. Fugiat aperiam dignissimos vitae minima eos voluptates odit earum pariatur, quidem esse dolore! Magni, vero atque. Molestiae 
                   laboriosam repellat amet dolorem suscipit nisi aspernatur animi! Dolor, aliquid! Eligendi laborum quos iste magni ipsa quis dolorem iure.</p>
                   <form class="d-flex">
@@ -112,12 +112,13 @@
             <div class="col-4 mb-4 " >
               <div class="card" id="projectCard" style="width: 18rem;" >
                 <img src="../public/asset/img/fotoku.jpg" class="card-img-top p-2" alt="...">
-                <div class="card-body"><a href="/detail/{{@index}}" target="_blank" style="text-decoration: none; color: #000;">
+                <div class="card-body"><a href="/detail/{{this.id}}" target="_blank" style="text-decoration: none; color: #000;">
                   <h5 class="card-title">{{this.title}}</h5> 
-                  <p id="durasi" class="card-subtitle text-muted" style="font-size: 12px;">Waktu pengerjaan : {{this.duration}}</p>
+                  <p id="durasi" class="card-subtitle text-muted" style="font-size: 12px;">Waktu pengerjaan : {{duration}}</p>
                   <p class="card-text">{{this.conten}}</p>
 
                   <div class="pt-2 pb-2 me-auto" id="material">
+                   
 
                     {{#each this.checkbox}}
                       <i class="{{this}}"></i>
@@ -132,10 +133,10 @@
                    
                   </div>
                   <div class="d-flex justify-content-between">
-                    {{#if this.isLogin}}
-                  <a href="/addProject/edit/{{@index}}" class="btn btn-secondary btn-sm flex-grow-1 me-3 " style="border-radius: 16px; font-size: 12px;">Edit</a>
-                  <a href="/home/delete/{{@index}}" class="btn btn-secondary btn-sm flex-grow-1" style="border-radius: 16px; font-size: 12px;">Delete</a>
-                    {{/if}}
+                    
+                  <a href="/addProject/edit/{{this.id}}" class="btn btn-secondary btn-sm flex-grow-1 me-3 " style="border-radius: 16px; font-size: 12px;">Edit</a>
+                  <a href="/home/delete/{{this.id}}" class="btn btn-secondary btn-sm flex-grow-1" style="border-radius: 16px; font-size: 12px;">Delete</a>
+                    
                   </div>
                   
                   
