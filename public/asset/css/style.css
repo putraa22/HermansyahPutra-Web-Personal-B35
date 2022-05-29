@@ -1,11 +1,8 @@
 
 
-.container .content1 {
-  /* width: 800px; */
-  padding: 13px;
+.container .head {
   margin: auto;
   margin-top: 2rem;
-  margin-bottom: 3rem;
   background-color: #fff;
   box-shadow: 0 0 20px black;
   border-radius: 15px;
@@ -13,38 +10,24 @@
 
 
 
-.container-about  {
-  /* width: 800px; */
-  padding: 15px;
+.container-about .row  {
   margin: auto;
-  margin-top: 4rem;
+  margin-top: 2rem;
   margin-bottom: 4rem;
   background-color: #fff;
   box-shadow: 0 0 20px black;
   border-radius: 15px;
 }
 
-.content {
-  width: 500px;
+.conten {
+  /* width: 500px; */
+  padding: 18px;
   margin: auto;
 }
 
-.content .tittle {
+.conten .tittle {
   text-align: justify;
-}
-
-.content .cv {
-  padding-top: 15px;
-  display: inline-block;
-  color: black;
-  text-decoration: none;
-}
-
-.row .cv {
-  display: inline-block;
-  color: black;
-  text-decoration: none;
-  padding-left: 10px;
+  padding: 18px;
 }
 
 // navbar
@@ -64,9 +47,9 @@
   margin-top: 3rem;
 }
 
-section {
+/* section {
   text-size: 50px;
-}
+} */
 
 #projectCard:hover {
     transition: .8s;

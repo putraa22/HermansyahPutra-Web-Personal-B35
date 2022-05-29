@@ -132,30 +132,28 @@ app.get('/home/delete/:id',(req,res)=>{
 
 // Project Edit / Update
 
-app.get('/addProject/edit/:id',(req,res)=>{
+app.get('/edit/:id',(req,res)=>{
   db.connect(function (err, client, done) {
     if (err) throw err;
-    const id = req.params.id
-    const query = `SELECT id, title, "dateStart", "dateEnd", conten, checkbox, image, duration
-    FROM projects where id = ${id};`
+    const id = req.params.id;
+    const query = `SELECT id, title, "dateStart", "dateEnd", conten, checkbox, image
+    FROM projects WHERE id = ${id};`
 
     client.query(query, function(err, result){
       if(err) throw err
 
       const projects = result.rows;
-      
       const data = projects.map((project) => {
           project.duration = difference(project.duration)
           return project;
         })
-
-      res.render('edit',{edit: data[0]});
-    })
-    done()
+        res.render('edit',{edit: data[0]});
+      })
+      done()
   })
 })
 
-app.post('/addProject/edit/:id', (req,res) =>{
+app.post('/edit/:id', (req,res) =>{
   const data = {
     title : req.body.title,
     dateStart : req.body.dateStart,
@@ -166,23 +164,31 @@ app.post('/addProject/edit/:id', (req,res) =>{
   }
   if  (req.body.html) {
     data.checkbox.push('fa-brands fa-html5 fa-2x pe-2')
+  } else {
+    data.checkbox.push('')
   }
   if (req.body.css) {
     data.checkbox.push('fa-brands fa-css3 fa-2x pe-2')
+  } else {
+    data.checkbox.push('')
   }
   if (req.body.js) {
     data.checkbox.push('fa-brands fa-js-square fa-2x pe-2')
+  } else {
+    data.checkbox.push('')
   }
   if (req.body.bs) {
     data.checkbox.push('fa-brands fa-bootstrap fa-2x pe-2')
+  } else {
+    data.checkbox.push('')
   }
   db.connect(function (err, client, done) {
     if (err) throw err
     const id = req.params.id
-    const query = `UPDATE public.projects
-    SET title='${data.title}', "dateStart"='${data.dateStart}', "dateEnd"='${data.dateEnd}', conten='${data.conten}', checkbox='{${data.checkbox.toString()}}',
+    const query = `UPDATE projects
+    SET title='${data.title}', "dateStart"='${data.dateStart}', "dateEnd"='${data.dateEnd}', conten='${data.conten}', checkbox= ARRAY ['${data.checkbox[0]}', '${data.checkbox[1]}', '${data.checkbox[2]}', '${data.checkbox[3]}']
     WHERE id = ${id};`
-
+   
     client.query(query, function(err, result) {
       if(err) throw err
 
@@ -237,60 +243,6 @@ app.listen(port, () => {
     console.log(`Server running on PORT: ${port}`);
   });
 
-
-
-//   function getDateDifference(dateStart, dateEnd) {
-//     if (dateStart > dateEnd) {
-//         console.error('Start date must be before end date');
-//         return null;
-//     }
-//     let startYear = dateStart.getFullYear();
-//     let startMonth = dateStart.getMonth();
-//     let startDay = dateStart.getDate();
-
-//     let endYear = dateEnd.getFullYear();
-//     let endMonth = dateEnd.getMonth();
-//     let endDay = dateEnd.getDate();
-
-//     let february = (endYear % 4 == 0 && endYear % 100 != 0) || endYear % 400 == 0 ? 29 : 28;
-//     let daysOfMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-//     let startDateNotPassedInEndYear = (endMonth < startMonth) || endMonth == startMonth && endDay < startDay;
-//     let years = endYear - startYear - (startDateNotPassedInEndYear ? 1 : 0);
-
-//     let months = (12 + endMonth - startMonth - (endDay < startDay ? 1 : 0)) % 12;
-
-//     let days = startDay <= endDay ? endDay - startDay : daysOfMonth[(12 + endMonth - 1) % 12] - startDay + endDay;
-
-//     return { 
-//         years: years,
-//         months: months,
-//         days: days
-//     }
-    
-// }
-
-// function processDataProjects(data, isUpdate=false){
-//   const dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-//   data.map((x)=>{
-//       x.lengthDate = getDateDifference(new Date(x.dateStart), new Date(x.dateEnd));
-//       x.dateStart = isUpdate ? x.dateStart : x.dateStart.toLocaleDateString('id-ID', dateFormatOptions);
-//       x.dateEnd = isUpdate ? x.dateEnd : x.dateEnd.toLocaleDateString('id-ID', dateFormatOptions);
-//       // if (x.technologies.includes("nodejs")){
-//       //     x.technologies.nodejs = true;
-//       // }
-//       // if (x.technologies.includes("reactjs")){
-//       //     x.technologies.reactjs = true;
-//       // }
-//       // if (x.technologies.includes("nextjs")){
-//       //     x.technologies.nextjs = true;
-//       // }
-//       // if (x.technologies.includes("typescript")){
-//       //     x.technologies.typescript = true;
-//       // }
-//   })
-//   return data;
-// }
 
 hbs.registerHelper("fulltime", function () {
   return getFullTime(this.project.dateStart, this.project.dateEnd);

@@ -50,113 +50,79 @@
 
     
     <!-- My Project section Start -->
-    <form action="/addProject" method='POST'>
-        <div class="container" style="width: 500px;">
+      <div class=" container">
+        <div class="table m-auto" >
+          <form action="/addProject" method='POST'>
+          
             <div class="row text-center p-3">
                 <h1 style="color: #000;">ADD PROJECT</h1>
             </div>
             
-            <div class="row justify-content-center  ">
-                <div class="col-lg-12">
+            <div class="d-flex row justify-content-center  ">
+                <div class="col-lg-8">
                     <label for="project" style="font-size: 18px; font-weight: bold;">Project Name</label>
                     <input type="text" class="form-control" name='title' id="title">     
                 </div>
+            </div>
 
-                <div class="col col-sm-6 pt-3 pb-3">
+            <div class="row justify-content-center">
+                <div class="col col-lg-4 pt-3 pb-3">
                     <label for="dateStart"  style="font-size: 18px; font-weight: bold; ">Start Date</label>
                     <input type="date" class="form-control" name="dateStart" id="date1"   aria-label="start">
                 </div>
-                <div class="col col-sm-6 pt-3 pb-3">
+                <div class="col col-lg-4 pt-3 pb-3">
                     <label for="dateEnd" style="font-size: 18px; font-weight: bold; ">End Date</label>
                     <input type="date" class="form-control" name="dateEnd" id="date2" aria-label="end">
                 </div>
+            </div>
             
-                <div class="mb-3">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mb-3">
                     <label for="conten" style="font-size: 18px; font-weight: bold; ">Description</label>
-                    <textarea class="form-control" name="conten" id="conten"></textarea>
+                    <textarea class="form-control" rows="4" name="conten" id="conten"></textarea>
                 </div>
             </div>
-            <div class="d-flex flex-row">
+            
+            <div class="row text-center" >
                 <h5 style="font-weight: bold;">Technologies</h5>
             </div>
-            <div class="d-flex flex-row">
-                <div class="col col-sm-6 pt-1 pb-3">
+
+              <div class="d-flex row justify-content-center">
+                <div class="col col-lg-4 pt-1 pb-3">
                     <input class="form-check-input" type="checkbox" value='fa-brands fa-html5 fa-2x pe-2' name='html' id="defaultCheck1" />
                     <label class="form-check-label" for="defaultCheck1">HTML</label> <br>
                     <input class="form-check-input" type="checkbox" value='fa-brands fa-css3 fa-2x pe-2' name='css' id="defaultCheck1" />
                     <label class="form-check-label" for="defaultCheck1">CSS</label> 
                 </div>
 
-                <div class="col col-sm-6 pt-1 pb-3">
+                <div class="col col-lg-4 pt-1 pb-3">
                     <input class="form-check-input" type="checkbox" value='fa-brands fa-js-square fa-2x pe-2' name='js' id="defaultCheck1" />
                     <label class="form-check-label" for="defaultCheck1">JAVASCRIPT</label> <br>
                     <input class="form-check-input" type="checkbox" value= 'fa-brands fa-bootstrap fa-2x pe-2' name='bs' id="defaultCheck1" />
                     <label class="form-check-label" for="defaultCheck1">BOOTSTRAP</label> 
                 </div>
+              </div>
                
-            </div>
-            <div class="d-flex flex-row">
-                <div class="col-12 pb-3">
-                    <label for="image" class="form-label">Upload Image</label>
+            <div class="d-flex row justify-content-center">
+                <div class="col-lg-8 pb-3">
+                    <label for="image" class="form-label" style="font-weight: bold;" >Upload Image</label>
                     <input class="form-control" type="file" id="image">
                 </div>
             </div>
-            <div class="d-flex flex-row">
-                <div class="ms-auto">
+            <div class="d-flex row">
+                <div class="col-lg-10 text-end">
                   <button  type="submit" class="btn btn-dark shadow" onclick="addCard()" id="bt" style="border-radius: 18px;">submit</button>
                 </div>
             </div>
-        </div>
-    </form>
-    <!-- My Project Section End -->
-
-    <!-- Project Card Start -->
-
-    {{!-- <section id="project">
-      <div class=" container mt-5 m-auto" style="max-width: 100%; background-color: #fff;">
-          <div class=" row text-center pt-4">
-            <div class=" col">
-              <h2 style="font-weight: bold;">MY PROJECT</h2>
-            </div>
-          </div>
-        <div class="row d-flex justify-content-start mt-4 offset-1 " id="thumb">
           
-            <!-- <div class="col-4 mb-4 "  >
-              <div class="card" id="projectCard" style="width: 18rem;" >
-                <img src="./asset/img/fotoku.jpg" class="card-img-top p-2" alt="...">
-                <div class="card-body"><a href="./detail-project/detail-project.html" style="text-decoration: none; color: #000;">
-                  <h5 class="card-title">Project Name</h5>
-                  <p id="durasi" class="card-subtitle text-muted">Durasi :</p>
-                  <p class="card-text">Description</p>
-                  <div class="pt-2 pb-2 me-auto" id="material">
-                    <a href="#" style="text-decoration: none; "><i class="fa-brands fa-html5 fa-2x pe-2"></i></a> 
-                    <a href="#"  style="text-decoration: none;"><i class="fa-brands fa-css3 fa-2x pe-2"></i></a>  
-                    <a href="#"  style="text-decoration: none;"><i class="fa-brands fa-js-square fa-2x pe-2"></i></a>  
-                    <a href="#"  style="text-decoration: none;"><i class="fa-brands fa-bootstrap fa-2x pe-2"></i></a> 
-                  </div>
-                  <div class="d-flex justify-content-between">
-                  <a href="#" class="btn btn-secondary btn-sm flex-grow-1 me-3 " style="border-radius: 16px; font-size: 12px;">Edit</a>
-                  <a href="#" class="btn btn-secondary btn-sm flex-grow-1" style="border-radius: 16px; font-size: 12px;">Delete</a>
-                  </div>
-                  </a>
-                </div>
-              </div>
-            </div> -->
-
-          </div>
+          </form>
+        </div>
       </div>
-    </section> --}}
-
-    <!-- Project Card End -->
-
-
-
-   
-
+    <!-- My Project Section End -->
 
 
       <!-- Footer Start -->
-          <footer class="bg-light">
+          <footer class="bg-light mt-5">
               <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2022 Copyright:
                 <a class="text-dark" href="#" style="text-decoration: none;">Hermansyah Putra</a>
