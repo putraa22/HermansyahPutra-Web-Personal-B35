@@ -1,11 +1,14 @@
 const express = require ('express');
 const db = require ('./db_project/database')
-const hbs = require ('hbs')
-
-
+const hbs = require ('hbs');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const flash = require('express-flash');
 const app = express()
 const port = 3000
 
+
+const isLogin = true;
 
 
 
@@ -17,27 +20,23 @@ const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', '
 
 
 
-const isLogin = true
 
-const projects = [ 
-  {
-  title: 'adasdawdsdawsda',
-  dateStart: '',
-  dateEnd: '',
-  conten: '',
-  checkbox: [
-    'fa-brands fa-html5 fa-2x pe-2',
-    'fa-brands fa-css3 fa-2x pe-2',
-    'fa-brands fa-js-square fa-2x pe-2',
-    'fa-brands fa-bootstrap fa-2x pe-2'
-  ],
-  duration: '',
-}]
+
 
 
 app.set('view engine', 'hbs');  // view engine
 app.use('/public', express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  session({
+    secret: 'rahasia',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 * 60 * 2 },
+  })
+);
+
+app.use(flash());
 
 
 app.get('/home', (req, res) => {
@@ -235,6 +234,102 @@ app.get('/detail/:id', (req, res) => {
 app.get('/contact', (req, res) => {
   res.render('contact');
 });
+
+
+
+// Form Login & Register 
+app.get('/login', (req, res) => {
+  res.render('login');
+})
+
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (email == '' || password == '') {
+    req.flash('warning!!', 'Masukkan data!!');
+    return res.redirect('/login');
+  }
+  
+  db.connect(function (err, client, done) {
+    if (err) throw err;
+    const query = `SELECT * FROM users WHERE email = '${email}';`;
+
+    
+
+    client.query(query, function (err, result) {
+      if (err) throw err;
+
+      const data = result.rows; 
+
+      if (data.length == 0) {
+        req.flash('error', 'Email not found');
+        return res.redirect('/login');
+      }
+
+      const isMatch = bcrypt.compareSync(password, data[0].password);
+
+      if (isMatch == false) {
+        req.flash('error', 'Password not match');
+        return res.redirect('/login');
+      }
+
+      req.session.isLogin = true
+      req.session.user = {
+        id: data[0].id,
+        email: data[0].email,
+        name: data[0].name,
+      };
+
+      req.flash('success', `Welcome, <b>${data[0].name}</b>`);
+
+      res.redirect('/home');
+    })
+    done()
+  })
+})
+
+
+
+app.get('/register', (req, res) => {
+  res.render('register');
+})
+
+app.post('/register', (req, res) => {
+ const name = req.body.name;
+ const email = req.body.email;
+ let password = req.body.password;
+
+ password = bcrypt.hashSync(password, 10 )
+ 
+  db.connect(function (err, client, done) {
+    if (err) throw err;
+
+    const query = `INSERT INTO users (name, email, password) VALUES('${name}','${email}','${password}');`;
+
+    client.query(query, function (err, result) {
+
+      if (err) throw err;
+      res.redirect('/login');
+    })
+    done()
+  })
+})
+
+
+app.get('/exit', (req, res) => {
+  req.session.destroy();
+  res.redirect('/home');
+});
+
+
+
+
+
+
+
+
+// Form Login & Register 
 
 
 

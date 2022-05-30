@@ -37,16 +37,42 @@
               <a class="nav-link" href="/addProject">Add Project</a>
             </li>
           </ul>
-          <form class="d-flex ms-md-4">
-              <a href="/contact" class="btn btn-dark" style="border-radius: 15px;">Contact Me</a>
+          <form class="d-flex ms-md-4 ">
+            {{#if isLogin}}
+              <div class="nav-item ps-2 pe-3 pt-2">
+                  <a class="nav-link" href="/exit">
+                    <i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 25px;"></i>
+                  </a>
+              </div>
+            {{else}}
+              <div>
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                  </li>
+                </ul>
+              </div>
+           {{/if}}
+
+              <a href="/contact" class="btn btn-info" style="border-radius: 20px;">Contact Me</a>
+
           </form>
         </div>
       </div>
     </nav>
     <!-- Navbar End -->
+    
 
     <!-- CONTENT -->
   <div class="container">
+    {{#if messages.success}}
+        <div class='alert alert-success w-100' role='alert'>
+          {{{messages.success}}}
+        </div>
+      {{/if}}
     <div class="head pb-5">
       <h2 class="text-center pt-4 " style="font-weight: bold;">Selamat datang di website saya</h2>
           <div class="conten">
@@ -54,7 +80,7 @@
                   Quas magnam ea atque, deserunt sed odit doloribus ratione quibusdam rerum sequi. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat assumenda modi dolores. Voluptate, distinctio. Fugiat aperiam dignissimos vitae minima eos voluptates odit earum pariatur, quidem esse dolore! Magni, vero atque. Molestiae 
                   laboriosam repellat amet dolorem suscipit nisi aspernatur animi! Dolor, aliquid! Eligendi laborum quos iste magni ipsa quis dolorem iure. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate dolorem magni suscipit sed accusamus, sequi nobis laborum, dolore veritatis asperiores exercitationem praesentium hic doloremque! Porro architecto tempora cum perferendis sint odit eius, nisi illo et consectetur fuga accusantium? Unde temporibus quibusdam, pariatur in illo doloremque omnis rerum, porro sapiente, repudiandae quisquam laboriosam alias voluptate quidem neque. Ducimus iusto perferendis ab nam. Voluptates iure quis minima voluptatem consequatur quibusdam pariatur est ducimus aspernatur placeat aperiam dolore dicta, sint eum corporis temporibus, perspiciatis ipsam, eligendi velit libero facere error doloremque odio? Ut exercitationem assumenda praesentium voluptatem velit, iste vero! Iste, corporis maxime.</p>
                   <form class="d-flex ps-4">
-                      <a href="/contact" class="btn btn-dark">Contact Me</a>
+                      <a href="/contact" class="btn btn-dark" style="border-radius: 20px;">Contact Me</a>
                   </form>
                   <br>
                   <p class="cv ps-4" style="font-weight: bold;" >Download CV <a href="#" style="text-decoration: none; color:#000;"><i class="fa-solid fa-file-arrow-down fa-1x ps-2"></i></a></p>
@@ -62,28 +88,6 @@
           </div>  
         
           <!-- Head -->
-{{!--           
-          <!-- Section: Social media -->
-              <section
-                class="text-center pb-3">
-                <!-- Center -->
-                <div>
-                  <a href="" class="me-lg-4 text-dark" style="text-decoration: none;">
-                    <i  class="fab fa-facebook fa-2xl"></i>
-                  </a>
-                  <a href="" class="me-lg-4 text-dark" style="text-decoration: none;">
-                    <i class="fab fa-twitter fa-2xl"></i>
-                  </a>
-                  <a href="#" class="me-lg-4 text-dark" style="text-decoration: none;">
-                    <i class="fab fa-google fa-2xl"></i>
-                  </a>
-                  <a href="#" class="me-lg-4 text-dark" style="text-decoration: none;">
-                    <i class="fab fa-instagram fa-2xl"></i>
-                  </a>
-                </div>
-                <!-- Center -->
-              </section>
-          <!-- Section: Social media --> --}}
 
           <!-- Card Start -->
               <div class="card m-auto shadow-lg" style="width: 18rem; border-radius: 10px;">

@@ -35,6 +35,16 @@
             </li>
           </ul>
           <form class="d-flex ms-md-4">
+            <div>
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/register">Register</a>
+                </li>
+              </ul>
+            </div>
               <a href="/contact" class="btn btn-dark" style="border-radius: 15px;">Contact Me</a>
           </form>
         </div>
@@ -56,7 +66,7 @@
             <div class="row justify-content-center  ">
                 <div class="col-lg-12">
                     <label for="project" style="font-size: 18px; font-weight: bold;">Project Name</label>
-                    <input type="text" class="form-control" name='name'   value="{{edit.title}}"  id="title">     
+                    <input type="text" class="form-control" name='name'   value="{{edit.data.title}}"  id="title">     
                 </div>
 
                 <div class="col col-sm-6 pt-3 pb-3">
