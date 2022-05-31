@@ -33,29 +33,30 @@
             <li class="nav-item">
               <a class="nav-link" href="/about">About Me</a>
             </li>
+            {{#if isLogin}}
             <li class="nav-item">
               <a class="nav-link" href="/addProject">Add Project</a>
             </li>
+            {{/if}}
           </ul>
           <form class="d-flex ms-md-4 ">
-            {{#if isLogin}}
-              <div class="nav-item ps-2 pe-3 pt-2">
-                  <a class="nav-link" href="/exit">
-                    <i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 25px;"></i>
-                  </a>
-              </div>
-            {{else}}
               <div>
                 <ul class="navbar-nav ms-auto">
+                  {{#if isLogin}}
+                  <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+                  {{else}}
                   <li class="nav-item">
                     <a class="nav-link" href="/login">Login</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/register">Register</a>
                   </li>
+                  {{/if}}
                 </ul>
               </div>
-           {{/if}}
+        
 
               <a href="/contact" class="btn btn-info" style="border-radius: 20px;">Contact Me</a>
 
@@ -130,35 +131,41 @@
           {{#each projects}}
             <div class="col-4 mb-4 " >
               <div class="card" id="projectCard" style="width: 18rem;" >
-                <img src="../public/asset/img/fotoku.jpg" class="card-img-top p-2" alt="...">
-                <div class="card-body"><a href="/detail/{{this.id}}" target="_blank" style="text-decoration: none; color: #000;">
-                  <h5 class="card-title">{{this.title}}</h5> 
-                  <p id="durasi" class="card-subtitle text-muted" style="font-size: 12px;">Waktu pengerjaan : {{duration}}</p>
-                  <p class="card-text">{{this.conten}}</p>
+                <img 
+                    src={{this.image}} 
+                    class="card-img-top p-2" alt="...">
+                <div class="card-body">
+                  <a href="/detail/{{this.id}}" target="_blank" style="text-decoration: none; color: #000;">
+                    <h5 class="card-title">{{this.title}}</h5> 
+                    <p id="durasi" class="card-subtitle text-muted" style="font-size: 12px;">
+                        Waktu pengerjaan : {{duration}}
+                    </p>
+                    <p class="card-text" style="text-indent: 13px; text-align:justify;">
+                      {{this.conten}}
+                    </p>
 
-                  <div class="pt-2 pb-2 me-auto" id="material">
-                   
+                    <div class="pt-2 pb-2 me-auto" id="material">
+                      {{#each this.checkbox}}
+                        <i class="{{this}}"></i>
+                      {{/each}}
+                    </div>
 
-                    {{#each this.checkbox}}
-                      <i class="{{this}}"></i>
-                    {{/each}}
-                
-
-                    {{!-- <a href="#" style="text-decoration: none; "></a> 
-                    <a href="#"  style="text-decoration: none;"></a>  
-                    <a href="#"  style="text-decoration: none;"></a>  
-                    <a href="#"  style="text-decoration: none;"></a>  --}}
-
-                   
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    
-                  <a href="/edit/{{this.id}}" class="btn btn-secondary btn-sm flex-grow-1 me-3 " style="border-radius: 16px; font-size: 12px;">Edit</a>
-                  <a href="/home/delete/{{this.id}}" class="btn btn-secondary btn-sm flex-grow-1" style="border-radius: 16px; font-size: 12px;">Delete</a>
-                    
-                  </div>
-                  
-                  
+                    <div class="d-flex justify-content-between">
+                          {{#if this.isLogin}}
+                        <a 
+                            href="/edit/{{this.id}}"
+                            class="btn btn-secondary btn-sm flex-grow-1 me-3 " 
+                            style="border-radius: 16px; font-size: 12px;">
+                            Edit
+                        </a>
+                        <a 
+                            href="/home/delete/{{this.id}}" 
+                            class="btn btn-secondary btn-sm flex-grow-1" 
+                            style="border-radius: 16px; font-size: 12px;">
+                            Delete
+                        </a>
+                          {{/if}}
+                    </div>
                   </a>
                 </div>
               </div>

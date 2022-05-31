@@ -52,7 +52,7 @@
     <!-- My Project section Start -->
       <div class=" container">
         <div class="table m-auto" >
-          <form action="/addProject" method='POST'>
+          <form action="/addProject" method='POST' enctype="multipart/form-data">
           
             <div class="row text-center p-3">
                 <h1 style="color: #000;">ADD PROJECT</h1>
@@ -105,13 +105,13 @@
                
             <div class="d-flex row justify-content-center">
                 <div class="col-lg-8 pb-3">
-                    <label for="image" class="form-label" style="font-weight: bold;" >Upload Image</label>
-                    <input class="form-control" type="file" id="image">
+                    <label for="input-image" class="form-label" style="font-weight: bold;" >Upload Image</label>
+                    <input class="form-control" name="image" type="file" id="input-image">
                 </div>
             </div>
             <div class="d-flex row">
                 <div class="col-lg-10 text-end">
-                  <button  type="submit" class="btn btn-dark shadow" onclick="addCard()" id="bt" style="border-radius: 18px;">submit</button>
+                  <button  type="submit" class="btn btn-dark shadow"  id="bt" style="border-radius: 18px;">submit</button>
                 </div>
             </div>
           

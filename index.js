@@ -4,13 +4,15 @@ const hbs = require ('hbs');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('express-flash');
-const app = express()
-const port = 3000
+const upload = require('./middlewares/uploadFile');
+
+const app = express();
+const port = 3000;
+
+
 
 
 const isLogin = true;
-
-
 
 // app.get('/',  (req,  res) => {
 //     res.send(' Magic World')
@@ -18,14 +20,9 @@ const isLogin = true;
 
 const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',];
 
-
-
-
-
-
-
 app.set('view engine', 'hbs');  // view engine
 app.use('/public', express.static(__dirname + '/public'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
@@ -42,25 +39,39 @@ app.use(flash());
 app.get('/home', (req, res) => {
   db.connect(function (err, client, done) {
     if (err) throw err;
-    
-    const query = 'SELECT * FROM projects';
+    let query = '';
+
+    if (req.session.isLogin == true) {
+      query = `SELECT projects.*, users.id as "author_id", users.name, users.email
+      FROM projects
+      LEFT JOIN users ON projects.author_id = users.id 
+      WHERE projects.author_id = ${req.session.user.id}
+      ORDER BY projects.id DESC`;
+    } else {
+      query = `SELECT projects.*, users.id as "author_id", users.name, users.email
+      FROM projects LEFT JOIN users ON projects.author_id = users.id
+      ORDER BY projects.id DESC`;
+    }
+
+
     
     client.query(query, function ( err, result ) {
       if (err) throw err
 
       const projects = result.rows;
-      
 
-
-    const newProject = projects.map((project) => {
-        project.isLogin = isLogin
-        project.duration = difference(project.duration)
-      
-
+      const newProject = projects.map((project) => {
+          project.isLogin = req.session.isLogin;
+          project.duration = difference(project.duration);
+          project.image = project.image ? '/uploads/' + project.image: '/public/asset/img/fotoku.jpg';
         return project;
       })
       // console.log(newProject);
-      res.render('home', {isLogin: isLogin, projects: newProject,  });
+      res.render('home', {
+          isLogin: req.session.isLogin,
+          user: req.session.user,
+          projects: newProject,  
+        });
     })
     done()
   })
@@ -77,15 +88,18 @@ app.get('/about', (req, res) => {
 app.get('/addProject', (req,res) => {
     res.render('addProject')
 })
-app.post('/addProject',  (req, res) => {
+app.post('/addProject', upload.single('image'), (req, res) => {
   const data = {
-    title : req.body.title,
-    dateStart : req.body.dateStart,
-    dateEnd : req.body.dateEnd,
-    conten : req.body.conten,
     checkbox: [],
     duration: req.body.duration,
   }
+  const title = req.body.title;
+  const dateStart = req.body.dateStart;
+  const dateEnd = req.body.dateEnd;
+  const conten = req.body.conten;
+  const userId = req.session.user.id;
+  const fileName = req.file.filename;
+
   if  (req.body.html) {
     data.checkbox.push('fa-brands fa-html5 fa-2x pe-2')
   }
@@ -102,7 +116,8 @@ app.post('/addProject',  (req, res) => {
   db.connect(function (err, client, done) {
     if (err) throw err;
     
-    const query = `INSERT INTO projects (title,"dateStart", "dateEnd", conten, checkbox) VALUES('${data.title}','${data.dateStart}', '${data.dateEnd}', '${data.conten}', '{${data.checkbox.toString()}}');`;
+    const query = `INSERT INTO projects (title,"dateStart", "dateEnd", conten, checkbox, image, author_id) 
+    VALUES('${title}','${dateStart}', '${dateEnd}', '${conten}', '{${data.checkbox.toString()}}','${fileName}', '${userId}');`;
 
     client.query(query, function (err, result) {
       if (err) throw err;
@@ -207,7 +222,11 @@ app.get('/detail/:id', (req, res) => {
   db.connect(function (err, client, done) {
     if (err) throw err;
     
-    const query = `SELECT * FROM projects where id = ${id}`;
+    const query = `SELECT projects.*, users.id as "author_id", users.name, users.email
+                    FROM projects
+                    LEFT JOIN users
+                    ON projects.author_id = users.id
+                    WHERE projects.id = ${id}`;
     
     client.query(query, function ( err, result ) {
       if (err) throw err
@@ -217,7 +236,8 @@ app.get('/detail/:id', (req, res) => {
 
 
       const data = projects.map((project) => {
-          project.duration = difference(project.duration)
+          project.duration = difference(project.duration);
+          project.image = project.image ? '/uploads/' + project.image: '/public/asset/img/fotoku.jpg';
         
   
           return project;
@@ -317,26 +337,20 @@ app.post('/register', (req, res) => {
 })
 
 
-app.get('/exit', (req, res) => {
+app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/home');
 });
 
-
-
-
-
-
-
-
-// Form Login & Register 
-
-
+// Form Login & Register
 
 
 app.listen(port, () => {
     console.log(`Server running on PORT: ${port}`);
   });
+
+
+
 
 
 hbs.registerHelper("fulltime", function () {
@@ -352,7 +366,7 @@ hbs.registerHelper("duration", function (project = false) {
   return difference(this.dateStart, this.dateEnd);
 });
   
-  function difference(dateStart, dateEnd) {
+function difference(dateStart, dateEnd) {
     dateStart = new Date(dateStart);
     dateEnd = new Date(dateEnd);
 
@@ -365,7 +379,7 @@ hbs.registerHelper("duration", function (project = false) {
     return dif < 30 ? dif +" hari" : parseInt(dif/30)+" bulan"
   }
   
-  function getFullTime(dateStart, dateEnd){
+function getFullTime(dateStart, dateEnd){
 
     dateStart= new Date(dateStart);
     dateEnd = new Date(dateEnd);
