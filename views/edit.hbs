@@ -66,21 +66,21 @@
             <div class="row justify-content-center  ">
                 <div class="col-lg-12">
                     <label for="project" style="font-size: 18px; font-weight: bold;">Project Name</label>
-                    <input type="text" class="form-control" name='name'   value="{{edit.data.title}}"  id="title">     
+                    <input type="text" class="form-control" name='name' {{#if edit}}  value="{{edit.title}}" {{/if}}  id="title">     
                 </div>
 
                 <div class="col col-sm-6 pt-3 pb-3">
                     <label for="date1"  style="font-size: 18px; font-weight: bold; ">Start Date</label>
-                    <input type="date" class="form-control" name="dateStart" {{#if edit}} value="{{ edit.dateStart}}" {{/if}} id="date1"   aria-label="start">
+                    <input type="date" class="form-control" name="dateStart"  value="{{ edit.dateStart}}"  id="date1"   aria-label="start">
                 </div>
                 <div class="col col-sm-6 pt-3 pb-3">
                     <label for="date2" style="font-size: 18px; font-weight: bold; ">End Date</label>
-                    <input type="date" class="form-control" name="dateEnd" {{#if edit}} value="{{ edit.dateEnd}}" {{/if}} id="date2" aria-label="end">
+                    <input type="date" class="form-control" name="dateEnd"  value="{{ edit.dateEnd}}" id="date2" aria-label="end">
                 </div>
             
                 <div class="mb-3">
                     <label for="conten" style="font-size: 18px; font-weight: bold; ">Description</label>
-                    <textarea class="form-control" name="conten" {{#if edit}} value="{{edit.conten}}" {{/if}}  id="conten" rows="4"></textarea>
+                    <textarea class="form-control" name="conten"  value="{{conten}}"   id="conten" rows="4"></textarea>
                 </div>
             </div>
             <div class="d-flex flex-row">
@@ -89,17 +89,17 @@
             <div class="d-flex flex-row">
               
                 <div class="col col-sm-6 pt-1 pb-3">
-                    <input class="form-check-input" type="checkbox" value='fa-brands fa-html5 fa-2x pe-2'  name='html' id="satu" {{#if edit}} {{data.checkbox.html}} {{/if}} />
+                    <input class="form-check-input" type="checkbox" value='fa-brands fa-html5 fa-2x pe-2'  name='html' id="satu" {{#if edit}} {{data.checkbox.html}} {{/if}} checked/>
                     <label class="form-check-label" for="satu">HTML</label> <br>
-                    <input class="form-check-input" type="checkbox" value='fa-brands fa-css3 fa-2x pe-2' name='css' id="dua" {{#if edit}}{{data.checkbox.css}} {{/if}} />
+                    <input class="form-check-input" type="checkbox" value='fa-brands fa-css3 fa-2x pe-2' name='css' id="dua" {{#if edit}}{{data.checkbox.css}} {{/if}} checked/>
                     <label class="form-check-label" for="dua">CSS</label> 
                 </div>
 
                 <div class="col col-sm-6 pt-1 pb-3">
                     <input class="form-check-input" type="checkbox" value='fa-brands fa-js-square fa-2x pe-2' name='js' id="tiga" 
-                    {{#if edit}} {{data.checkbox.js}} {{/if}} />
+                    {{#if edit}} {{data.checkbox.js}}  {{/if}} checked/>
                     <label class="form-check-label" for="tiga">JAVASCRIPT</label> <br>
-                    <input class="form-check-input" type="checkbox" value= 'fa-brands fa-bootstrap fa-2x pe-2' name='bs' id="empat" {{#if edit}} {{data.checkbox.bs}} {{/if}} />
+                    <input class="form-check-input" type="checkbox" value= 'fa-brands fa-bootstrap fa-2x pe-2' name='bs' id="empat" {{#if edit}}  {{data.checkbox.bs}} {{/if}} checked/>
                     <label class="form-check-label" for="empat">BOOTSTRAP</label> 
                 </div>
              
@@ -107,7 +107,7 @@
             <div class="d-flex flex-row">
                 <div class="col-12 pb-3">
                     <label for="image" class="form-label">Upload Image</label>
-                    <input class="form-control" type="file" id="image">
+                    <input class="form-control" type="file" id="image" >
                 </div>
             </div>
             <div class="d-flex flex-row">

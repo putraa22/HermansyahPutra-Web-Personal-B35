@@ -169,13 +169,15 @@ app.get('/edit/:id',(req,res)=>{
 
 app.post('/edit/:id', (req,res) =>{
   const data = {
-    title : req.body.title,
-    dateStart : req.body.dateStart,
-    dateEnd : req.body.dateEnd,
-    conten : req.body.conten,
     checkbox: [],
     duration: req.body.duration,
   }
+  const title = req.body.title;
+  const dateStart = req.body.dateStart;
+  const dateEnd = req.body.dateEnd;
+  const conten = req.body.conten;
+ 
+
   if  (req.body.html) {
     data.checkbox.push('fa-brands fa-html5 fa-2x pe-2')
   } else {
@@ -200,7 +202,7 @@ app.post('/edit/:id', (req,res) =>{
     if (err) throw err
     const id = req.params.id
     const query = `UPDATE projects
-    SET title='${data.title}', "dateStart"='${data.dateStart}', "dateEnd"='${data.dateEnd}', conten='${data.conten}', checkbox= ARRAY ['${data.checkbox[0]}', '${data.checkbox[1]}', '${data.checkbox[2]}', '${data.checkbox[3]}']
+    SET title='${title}', "dateStart"='${dateStart}', "dateEnd"='${dateEnd}', conten='${conten}', checkbox= ARRAY ['${data.checkbox[0]}', '${data.checkbox[1]}', '${data.checkbox[2]}', '${data.checkbox[3]}']
     WHERE id = ${id};`
    
     client.query(query, function(err, result) {
@@ -266,8 +268,8 @@ app.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  if (email == '' || password == '') {
-    req.flash('warning!!', 'Masukkan data!!');
+  if (email == '' || password == '' ) {
+    req.flash('warning', 'Masukkan data anda dengan benar..!!');
     return res.redirect('/login');
   }
   
@@ -301,7 +303,7 @@ app.post('/login', (req, res) => {
         name: data[0].name,
       };
 
-      req.flash('success', `Welcome, <b>${data[0].name}</b>`);
+      req.flash('success', `Haiii. . .  <b>${data[0].name}</b> Selamat datang di Personal Web saya.`);
 
       res.redirect('/home');
     })
@@ -330,7 +332,13 @@ app.post('/register', (req, res) => {
     client.query(query, function (err, result) {
 
       if (err) throw err;
-      res.redirect('/login');
+
+      if(err) {
+        res.redirect('/register');
+      } else {
+        req.flash('success', '<b>Register Success</b>, please login.!!');
+        res.redirect('/login');
+      }
     })
     done()
   })

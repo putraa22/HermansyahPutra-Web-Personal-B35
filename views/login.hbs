@@ -59,20 +59,24 @@
                     <h1 style="font-weight: bold;">Login</h1>
                 </div>
 
-                {{#if messages.error}}
-                    <div class='alert alert-danger' role='alert'>
-                        {{messages.error}}
-                    </div>
-                {{/if}}
-
-                {{#if messages.warning}}
-                    <div class='alert alert-warning' role='alert'>
-                        {{messages.warning}}
-                    </div>
-                {{/if}}
-
                 <div class="row ">
                     <div class="col-5 m-auto ">
+                        {{#if messages.success}}
+                            <div class='alert alert-success' role='alert'>
+                                {{{messages.success}}}
+                            </div>
+                        {{/if}}
+                         {{#if messages.error}}
+                            <div class='alert alert-danger' role='alert'>
+                                {{messages.error}}
+                            </div>
+                        {{/if}}
+
+                        {{#if messages.warning}}
+                            <div class='alert alert-warning' role='alert'>
+                                {{messages.warning}}
+                            </div>
+                        {{/if}}
                         <label for="email" style="font-weight: bold;" >Email</label>
                         <input type="email" class="form-control mt-2" name="email" id="email" placeholder="Input Your Email">
                     </div>
